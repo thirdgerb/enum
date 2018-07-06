@@ -36,6 +36,14 @@ class EnumTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('constant(): Couldn\'t find constant Test::C', $e->getMessage());
     }
 
+    public function testConstants()
+    {
+        $this->assertEquals(['A', 'B'], Test::names());
+        $this->assertEquals(['a', 'b'], Test::values());
+        $this->assertEquals([], T::names());
+        $this->assertEquals([], T::values());
+    }
+
     protected function typehint(Test $test)
     {
         return $test->val();
@@ -59,4 +67,6 @@ class Test extends \Thirdgerb\Enum {
 
     const B = 'b';
 
+}
+class T extends \Thirdgerb\Enum {
 }

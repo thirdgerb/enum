@@ -6,31 +6,56 @@ class Enum {
 
     private $name;
 
+    /**
+     * @var array
+     */
+    private static $constants = [];
+
     private function __construct(string $name){
         $this->name = $name;
     }
 
-    public function name()
+    final public static function names() : array
+    {
+        $class = static::class;
+        if (array_key_exists($class, self::$constants)) {
+            return array_keys(self::$constants[$class]);
+        }
+
+        $reflection = new \ReflectionClass(static::class);
+        $constants = $reflection->getConstants();
+
+        self::$constants[$class] = $constants ? : [];
+        return array_keys($constants);
+    }
+
+    final public static function values() : array
+    {
+        static::names();
+        return array_values(self::$constants[static::class]);
+    }
+
+    final public function name() : string
     {
         return $this->name;
     }
 
-    public function val()
+    final public function val()
     {
         return constant($this->constName());
     }
 
-    public function equals($val)
+    final public function equals($val)
     {
         return $this->val() === $val;
     }
 
-    public function __toString()
+    final public function __toString()
     {
         return $this->constName();
     }
 
-    public function constName()
+    final public function constName()
     {
         return static::class . '::' . $this->name;
     }
@@ -40,7 +65,7 @@ class Enum {
      * @param array $args
      * @return static
      */
-    public static function __callStatic($name, $args){
+    final public static function __callStatic($name, $args){
         if (!is_null(constant(static::class . '::' . $name))) {
             return new static($name);
         }
