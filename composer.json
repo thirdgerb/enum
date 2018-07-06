@@ -1,0 +1,23 @@
+{
+    "name": "thirdgerb/enum",
+    "description": "implements enum, can be used with typehint",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "thirdgerb",
+            "email": "thirdgerb@gmail.com"
+        }
+    ],
+    "requires" : {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Thirdgerb\\": "src/"
+        }
+    }
+}
