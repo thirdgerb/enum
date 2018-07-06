@@ -36,6 +36,16 @@ class EnumTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('constant(): Couldn\'t find constant Test::C', $e->getMessage());
     }
 
+    protected function typehint(Test $test)
+    {
+        return $test->val();
+    }
+
+    public function testTypeHint()
+    {
+        $this->assertEquals(Test::A, $this->typehint(Test::A()));
+    }
+
 }
 
 /**
