@@ -23,5 +23,6 @@ interface EnumInterface
 
     public static function values() : array;
 
+    public static function defined(string $name) : bool;
 
 }

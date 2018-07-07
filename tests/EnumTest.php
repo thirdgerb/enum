@@ -60,6 +60,12 @@ class EnumTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(Test::A, $this->typeHint(Test::A()));
     }
 
+    public function testDefined()
+    {
+        $this->assertTrue(Test::defined('A'));
+        $this->assertFalse(Test::defined('C'));
+    }
+
     public function testStaticCall()
     {
         try {

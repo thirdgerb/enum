@@ -60,6 +60,11 @@ class Enum implements EnumInterface {
         return static::class . '::' . $this->name;
     }
 
+    final public static function defined(string $name): bool
+    {
+        return defined(static::class . '::' . $name);
+    }
+
     /**
      * @param string $name
      * @param array $args
