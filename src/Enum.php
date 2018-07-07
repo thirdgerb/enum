@@ -2,7 +2,7 @@
 
 namespace Thirdgerb;
 
-class Enum {
+class Enum implements EnumInterface {
 
     private $name;
 
@@ -45,7 +45,7 @@ class Enum {
         return constant($this->constName());
     }
 
-    final public function equals($val)
+    final public function equals($val) : bool
     {
         return $this->val() === $val;
     }
@@ -55,7 +55,7 @@ class Enum {
         return $this->constName();
     }
 
-    final public function constName()
+    final public function constName() : string
     {
         return static::class . '::' . $this->name;
     }
@@ -66,9 +66,9 @@ class Enum {
      * @return static
      */
     final public static function __callStatic($name, $args){
-        if (!is_null(constant(static::class . '::' . $name))) {
+        if (defined(static::class . '::' . $name)) {
             return new static($name);
         }
-        throw new \InvalidArgumentException('const '.static::class . '::'.$name. ' not found ');
+        throw new \InvalidArgumentException('constant '.static::class . '::'.$name. ' not found');
     }
 }

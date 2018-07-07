@@ -3,6 +3,11 @@
 class EnumTest extends \PHPUnit\Framework\TestCase
 {
 
+//    public function testNotExists()
+//    {
+//        Test::C();
+//    }
+
     public function testEnum()
     {
         $a = Test::A();
@@ -33,7 +38,8 @@ class EnumTest extends \PHPUnit\Framework\TestCase
         }
 
         $this->assertTrue(isset($e));
-        $this->assertEquals('constant(): Couldn\'t find constant Test::C', $e->getMessage());
+        $this->assertTrue($e instanceof InvalidArgumentException);
+        $this->assertEquals('constant Test::C not found', $e->getMessage());
     }
 
     public function testConstants()
@@ -44,16 +50,29 @@ class EnumTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals([], T::values());
     }
 
-    protected function typehint(Test $test)
+    protected function typeHint(Test $test)
     {
         return $test->val();
     }
 
     public function testTypeHint()
     {
-        $this->assertEquals(Test::A, $this->typehint(Test::A()));
+        $this->assertEquals(Test::A, $this->typeHint(Test::A()));
     }
 
+    public function testStaticCall()
+    {
+        try {
+
+            Test::__callStatic('notExists', []);
+        } catch (\InvalidArgumentException $e) {
+
+        }
+
+        $this->assertTrue(isset($e));
+        $this->assertTrue($e instanceof InvalidArgumentException);
+        $this->assertEquals('constant Test::notExists not found', $e->getMessage());
+    }
 }
 
 /**
