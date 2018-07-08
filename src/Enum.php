@@ -24,6 +24,7 @@ class Enum implements EnumInterface {
 
         $reflection = new \ReflectionClass(static::class);
         $constants = $reflection->getConstants();
+        ksort($constants);
 
         self::$constants[$class] = $constants ? : [];
         return array_keys($constants);

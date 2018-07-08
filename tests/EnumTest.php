@@ -79,6 +79,14 @@ class EnumTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($e instanceof InvalidArgumentException);
         $this->assertEquals('constant Test::notExists not found', $e->getMessage());
     }
+
+    public function testExtends()
+    {
+        $this->assertEquals(Test::A, Test2::A()->val());
+        $this->assertEquals(Test::B, Test2::B()->val());
+        $this->assertEquals(Test2::C, Test2::C()->val());
+
+    }
 }
 
 /**
@@ -86,12 +94,19 @@ class EnumTest extends \PHPUnit\Framework\TestCase
  * @method static B
  * Class Test
  */
-class Test extends \Thirdgerb\Enum {
+class Test extends \Thirdgerb\Enum implements  TT{
 
-    const A = 'a';
 
     const B = 'b';
 
 }
 class T extends \Thirdgerb\Enum {
+}
+
+interface TT {
+    const A = 'a';
+}
+
+class Test2 extends Test {
+    const C = 'c';
 }
