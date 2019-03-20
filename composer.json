@@ -1,6 +1,6 @@
 {
     "name": "thirdgerb/enum",
-    "description": "implements enum, can be used with typehint",
+    "description": "deprecated, recommend myclabs/php-enum",
     "type": "library",
     "license": "MIT",
     "authors": [
